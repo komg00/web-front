@@ -1,16 +1,19 @@
 import React from "react";
 import { features } from "../data/features";
+import { useNavigate } from "react-router-dom";
 
 export default function Landing() {
+  const navigate = useNavigate();
+
   return (
     <>
       <section className="relative w-full flex flex-col lg:flex-row bg-lightGreen py-20 lg:py-44">
         <div className="w-full flex flex-col px-6 lg:px-36 text-center lg:text-left">
-          <h1 className="text-4xl lg:text-6xl font-bold dark1 mb-4">YAONG</h1>
-          <h2 className="text-2xl lg:text-4xl font-bold dark1 mb-4">
+          <h1 className="text-5xl lg:text-6xl font-bold dark1 mb-4">YAONG</h1>
+          <h2 className="text-3xl lg:text-4xl font-bold dark1 mb-4">
             야구보러 옹기종기
           </h2>
-          <p className="my-6 dark1 text-lg lg:text-xl font-medium">
+          <p className="my-4 dark1 text-lg lg:text-xl font-medium">
             야옹은 야린이부터 야구 고수까지 전국의 모든 KBO 팬들과 함께합니다.
             <br />
             경기 정보, 굿즈 구매, 야구 사전, 커뮤니티 기능까지
@@ -18,10 +21,16 @@ export default function Landing() {
             야옹 서비스 내에서 모두 누려보세요!
           </p>
           <div className="mt-4 flex flex-row justify-center items-center lg:justify-start">
-            <button className="w-1/3 md:w-36 h-16 mr-6 bg-main2 text-white text-lg font-semibold hover:scale-105 transform transition duration-300">
+            <button
+              className="w-36 h-16 mr-6 bg-main2 text-white text-lg font-semibold hover:bg-main1 transform transition duration-300"
+              onClick={() => navigate("/signup")}
+            >
               Sign Up →
             </button>
-            <button className="w-1/3 md:w-36 h-16 border-2 border-main2 text-green-600 text-lg font-semibold hover:scale-105 transform transition duration-300">
+            <button
+              className="w-36 h-16 border-2 border-main2 text-green-600 text-lg font-semibold hover:bg-main1 hover:text-white transform transition duration-300"
+              onClick={() => navigate("/signin")}
+            >
               Sign In
             </button>
           </div>
