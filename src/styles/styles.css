@@ -1,0 +1,5 @@
+@media (max-height: 880px) {
+  .hide-on-small-height {
+    display: none;
+  }
+}
