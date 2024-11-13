@@ -19,7 +19,7 @@ type Props = {
 
 export default function Sidebar({ menu }: Props) {
   return (
-    <div className="hidden sm:flex relative w-full max-w-[310px] sm:w-[210px] xl:w-[310px] bg-white flex-col items-center border-r-2 border-gray-200">
+    <div className="hidden md:flex relative w-full max-w-[310px] sm:w-[210px] xl:w-[310px] bg-white flex-col items-center border-r-2 border-gray-200">
       <div className="flex gap-4 xl:gap-8 mt-9 xl:mt-11 mb-4 xl:mb-6">
         <HiOutlineChat size={35} color="#333" />
         <HiOutlineCog size={35} color="#333" />
