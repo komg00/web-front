@@ -19,7 +19,7 @@ type Props = {
 
 export default function Sidebar({ menu }: Props) {
   return (
-    <div className="hidden md:flex relative w-full max-w-[310px] sm:w-[210px] xl:w-[310px] bg-white flex-col items-center border-r-2 border-gray-200">
+    <div className="hidden md:flex relative w-[260px] xl:w-[310px] bg-white flex-col items-center border-r-2 border-gray-200">
       <div className="flex gap-4 xl:gap-8 mt-9 xl:mt-11 mb-4 xl:mb-6">
         <HiOutlineChat size={35} color="#333" />
         <HiOutlineCog size={35} color="#333" />
@@ -38,26 +38,30 @@ export default function Sidebar({ menu }: Props) {
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-3 xl:gap-x-5 xl:gap-y-6 my-8">
+      <div className="w-full grid grid-cols-2 gap-4 xl:gap-5 my-8 p-4">
         {menu.map((item, index) => (
           <div
             key={index}
-            className="w-[85px] h-[85px] xl:w-[120px] xl:h-[120px] flex flex-col justify-center items-center bg-white border-dark3 border rounded-2xl xl:p-4"
+            className="w-full aspect-square flex flex-col justify-center items-center bg-white border-dark3 border rounded-2xl p-2"
           >
-            <item.icon size={40} className="text-dark3 xl:size-60" />
-            <p className="text-dark3 text-base font-bold mt-1 hidden sm:block">
+            <item.icon
+              size={60}
+              color="#99"
+              className="xl:size-65 text-dark3"
+            />
+            <p className="text-dark3 text-12px xl:text-base font-bold mt-1 hidden sm:block">
               {item.title}
             </p>
           </div>
         ))}
       </div>
-      {/* 경험치 */}
+
       <div className="hidden mt-auto items-stretch sm:flex w-full flex-col gap-3">
-        <div className="w-full flex items-center mx-3">
+        <div className="w-full flex items-center mx-3 lg:ml-5">
           <img
-            src="/assets/images/default_profile.svg"
+            src="/assets/images/profile.svg"
             alt="profile"
-            className="w-10 xl:w-20"
+            className="w-11 xl:w-[65px]"
           />
           <div className="w-full flex flex-col ml-1">
             <p className="font-bold sm:text-sm xl:text-lg">

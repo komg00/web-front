@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
+  const navigate = useNavigate();
+
   return (
     <header className="w-full flex items-center justify-between px-9 py-4 bg-white border-b-2 border-gray-200">
       <img src={"/assets/images/logo.svg"} alt="logo" />
@@ -34,7 +36,12 @@ export default function Header() {
       <div className="flex items-center justify-center space-x-3">
         <button className="dark2 hover:black mx-2">Sign In</button>
         <img src={"/assets/images/chat.svg"} alt="chat" />
-        <img src={"/assets/images/default_profile.svg"} alt="profile" />
+        <img
+          src={"/assets/images/default_profile.svg"}
+          alt="profile"
+          onClick={() => navigate("/mypage")}
+          className="cursor-pointer"
+        />
       </div>
     </header>
   );

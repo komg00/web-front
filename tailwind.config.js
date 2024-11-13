@@ -21,6 +21,9 @@ module.exports = {
       minHeight: {
         "screen-90": "calc(100vh-90px)",
       },
+      fontSize: {
+        "12px": "12px",
+      },
     },
   },
   plugins: [],
