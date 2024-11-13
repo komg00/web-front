@@ -1,7 +1,8 @@
 import React from "react";
 import Sidebar from "components/layout/Sidebar";
 import { mypageMenu } from "data/menu";
-import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
+import { posts } from "data/dummy/post";
+import Post from "components/myPage/Post";
 
 export default function Mypage() {
   return (
@@ -42,7 +43,7 @@ export default function Mypage() {
           작성한 게시글
         </div>
 
-        <div>{/*포스트 목록 */}</div>
+        <Post posts={posts} />
       </div>
     </div>
   );
