@@ -1,0 +1,65 @@
+.react-calendar {
+  width: 100%;
+  border: none;
+  font-size: 2.4rem;
+}
+
+// 상단 내비게이션(년, 월)
+.react-calendar__navigation {
+  justify-content: center;
+}
+
+/* 네비게이션 폰트 설정 */
+.react-calendar__navigation button {
+  font-weight: 700;
+}
+
+/* 요일 밑줄 제거 */
+.react-calendar__month-view__weekdays abbr {
+  text-decoration: none;
+  color: black;
+}
+
+/* 오늘 날짜 */
+.react-calendar__tile--now {
+  background: #f5c513;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+}
+.react-calendar__month-view__days {
+  color: #21272a;
+  gap: 45px 0;
+}
+.react-calendar__month-view__days__day--weekend {
+  color: #21272a;
+}
+// 일(각 타일)
+.react-calendar__tile {
+  height: 20px;
+  border-radius: 10px;
+}
+/*hover, focus, 선택됐을 시 */
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus,
+.react-calendar__tile--active {
+  background: #00b286;
+  border-radius: 10px;
+  font-weight: 600;
+  color: white;
+}
+
+.react-calendar__year-view__months__month {
+  height: 10px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.react-calendar__tile--hasActive {
+  background: #00b286;
+  border-radius: 10px;
+  font-weight: 600;
+  color: white;
+}
