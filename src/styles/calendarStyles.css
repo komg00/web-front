@@ -1,12 +1,13 @@
 .react-calendar {
   width: 100%;
   border: none;
-  font-size: 2.2rem;
+  font-size: 2rem;
 }
 
-// 상단 내비게이션(년, 월)
+/* 상단 내비게이션(년, 월) */
 .react-calendar__navigation {
   justify-content: center;
+  align-items: center;
 }
 
 /* 네비게이션 폰트 설정 */
@@ -29,15 +30,15 @@
 }
 .react-calendar__month-view__days {
   color: #21272a;
-  gap: 45px 0;
+  gap: 0;
 }
 .react-calendar__month-view__days__day--weekend {
   color: #21272a;
 }
-// 일(각 타일)
+/* 일(각 타일) */
 .react-calendar__tile {
-  height: 20px;
   border-radius: 10px;
+  padding: 1rem 0 !important;
 }
 /*hover, focus, 선택됐을 시 */
 .react-calendar__tile:enabled:hover,
@@ -49,31 +50,54 @@
   color: white;
 }
 
-// 내비게이션 년, 월 선택
+/* 내비게이션 년, 월 선택 */
 .react-calendar__year-view__months__month {
   justify-content: center;
   display: flex;
   align-items: center;
   border-radius: 10px;
 }
-// 현재 월 색상
+
+.react-calendar__year-view {
+  background: none;
+}
+
+/* 내비게이션 년, 월 선택 뷰 */
+.react-calendar__century-view__decades,
+.react-calendar__decade-view__years,
+.react-calendar__year-view__months {
+  gap: 1.5rem 0;
+}
+
 .react-calendar__tile--hasActive {
-  background: #f5c513;
+  background: #00b286 !important;
+  color: white;
+  font-weight: 600;
+}
+
+/* 달력 각 버튼*/
+.react-calendar button {
+  padding: 10px;
+  border-radius: 10px;
 }
 
 /* 미디어 쿼리 추가 */
 @media (max-width: 1024px) {
   .react-calendar {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
   }
 
   .react-calendar__navigation {
     font-weight: 400;
   }
 
-  .react-calendar__month-view__days {
-    color: #21272a;
-    gap: 15px 0;
+  .react-calendar__navigation button {
+    font-weight: 400;
+  }
+
+  .react-calendar__tile {
+    border-radius: 10px;
+    padding: 0.5rem;
   }
 }
 

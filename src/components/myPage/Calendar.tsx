@@ -26,7 +26,7 @@ export default function BaseballCalendar() {
 
   return (
     <>
-      <div className="w-full md:w-[450px] lg:w-[500px] xl:w-[600px] bg-white p-10 lg:p-15 xl:p-20 shadow-md rounded-md">
+      <div className="w-auto md:w-[450px] lg:w-[360px] xl:w-[460px] mx-5 md:mx-0 lg:mr-4 bg-white py-10 px-4 xl:px-8 xl:py-20 shadow border">
         <Calendar
           onChange={setSelectedDate}
           value={selectedDate}
