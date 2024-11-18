@@ -3,32 +3,35 @@ import moment from "moment";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../../styles/calendarStyles.css";
+import { useDispatch } from "react-redux";
+import { setSelectedDate } from "store/slices/calendarSlice";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export default function BaseballCalendar() {
-  const [selectedDate, setSelectedDate] = useState<Value>(new Date());
+  const dispatch = useDispatch();
+  const [selectedDate, setLocalSelectedDate] = useState<Value>(new Date());
 
-  // 단일 날짜 또는 범위의 시작 날짜를 반환하는 함수
-  const getFormattedDate = (date: Value) => {
-    if (Array.isArray(date)) {
-      // 배열인 경우, 시작 날짜 반환
-      return date[0]
-        ? moment(date[0]).format("YYYY년 MM월 DD일")
-        : "날짜를 선택해 주세요.";
-    } else if (date) {
-      // 단일 날짜인 경우 처리
-      return moment(date).format("YYYY년 MM월 DD일");
-    }
-    return "날짜를 선택해 주세요."; // null인 경우
+  const handleDateChange = (date: Value) => {
+    setLocalSelectedDate(date);
+    const formattedDate = Array.isArray(date)
+      ? date[0]
+        ? moment(date[0]).toISOString()
+        : null
+      : date
+      ? moment(date).toISOString()
+      : null;
+    dispatch(setSelectedDate(formattedDate));
   };
+
+  console.log();
 
   return (
     <>
       <div className="w-auto md:w-[450px] lg:w-[360px] xl:w-[460px] mx-5 md:mx-0 lg:mr-4 bg-white py-10 px-4 xl:px-8 xl:py-20 shadow border">
         <Calendar
-          onChange={setSelectedDate}
+          onChange={handleDateChange}
           value={selectedDate}
           locale="ko-KR"
           prev2Label={null}
