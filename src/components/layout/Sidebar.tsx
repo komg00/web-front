@@ -7,10 +7,12 @@ import {
   HiOutlineSearch,
 } from "react-icons/hi";
 import { IconType } from "react-icons";
+import { useNavigate } from "react-router-dom";
 
 type MenuItem = {
   title: string;
   icon: IconType;
+  link?: string;
 };
 
 type Props = {
@@ -18,6 +20,7 @@ type Props = {
 };
 
 export default function Sidebar({ menu }: Props) {
+  const navigate = useNavigate();
   return (
     <div className="hidden md:flex relative w-[260px] xl:w-[310px] bg-white flex-col items-center border-r-2 border-gray-200">
       <div className="flex gap-4 xl:gap-8 mt-9 xl:mt-11 mb-4 xl:mb-6">
@@ -42,7 +45,8 @@ export default function Sidebar({ menu }: Props) {
         {menu.map((item, index) => (
           <div
             key={index}
-            className="w-full aspect-square flex flex-col justify-center items-center bg-white border-dark3 border rounded-2xl p-2"
+            className="w-full aspect-square flex flex-col justify-center items-center bg-white border-dark3 border rounded-2xl p-2 cursor-pointer"
+            onClick={() => item.link && navigate(item.link)}
           >
             <item.icon
               size={60}

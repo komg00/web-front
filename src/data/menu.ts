@@ -20,8 +20,16 @@ export const homeMenu = [
 ];
 
 export const mypageMenu = [
-  { title: "프로필", icon: HiOutlineUser },
-  { title: "야구 관람 일지", icon: HiOutlineCalendar },
-  { title: "추천 경기 클립", icon: HiOutlineVideoCamera },
-  { title: "환경설정", icon: HiOutlineCog },
+  { title: "프로필", icon: HiOutlineUser, link: "/mypage" },
+  {
+    title: "야구 관람 일지",
+    icon: HiOutlineCalendar,
+    link: "/mypage/diary",
+  },
+  {
+    title: "추천 경기 클립",
+    icon: HiOutlineVideoCamera,
+    link: "/mypage/recommend",
+  },
+  { title: "환경설정", icon: HiOutlineCog, link: "/mypage/settings" },
 ];
