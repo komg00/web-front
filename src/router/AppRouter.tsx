@@ -7,6 +7,8 @@ import HomePage from "pages/HomePage";
 import Mypage from "pages/Mypage";
 import Profile from "components/myPage/Profile";
 import Diary from "components/myPage/Diary";
+import Dictionarypage from "pages/DictionaryPage";
+import Dictionary from "components/dictionary/Dictionary";
 
 const AppRouter: React.FC = () => {
   return (
@@ -17,10 +19,12 @@ const AppRouter: React.FC = () => {
         <Route path="/home" element={<HomePage />} />
         <Route path="/signup" element={<AuthPage authType="signUp" />} />
         <Route path="/signin" element={<AuthPage authType="signin" />} />
-        <Route path="/mypage" element={<Mypage />} />
         <Route path="/mypage" element={<Mypage />}>
           <Route index element={<Profile />} />
           <Route path="diary" element={<Diary />} />
+        </Route>
+        <Route path="/dictionary" element={<Dictionarypage />}>
+          <Route index element={<Dictionary />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -8,6 +8,10 @@ import {
   HiOutlineCalendar,
   HiOutlineVideoCamera,
   HiOutlineCog,
+  HiOutlineBookOpen,
+  HiOutlineQuestionMarkCircle,
+  HiOutlineClipboardList,
+  HiOutlineMusicNote,
 } from "react-icons/hi";
 
 export const homeMenu = [
@@ -32,4 +36,19 @@ export const mypageMenu = [
     link: "/mypage/recommend",
   },
   { title: "환경설정", icon: HiOutlineCog, link: "/mypage/settings" },
+];
+
+export const dictionaryMenu = [
+  { title: "야구 사전", icon: HiOutlineBookOpen, link: "/dictionary" },
+  {
+    title: "야구 퀴즈",
+    icon: HiOutlineQuestionMarkCircle,
+    link: "/dictionary/quiz",
+  },
+  {
+    title: "야구 선수 위키",
+    icon: HiOutlineClipboardList,
+    link: "/dictionary/players",
+  },
+  { title: "구단별 응원가", icon: HiOutlineMusicNote, link: "/mypage/songs" },
 ];
