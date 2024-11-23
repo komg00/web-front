@@ -11,6 +11,7 @@ import Dictionarypage from "pages/DictionaryPage";
 import Dictionary from "components/dictionary/Dictionary";
 import Quiz from "components/dictionary/Quiz";
 import Song from "components/dictionary/Song";
+import Player from "components/dictionary/Player";
 
 const AppRouter: React.FC = () => {
   return (
@@ -29,6 +30,7 @@ const AppRouter: React.FC = () => {
           <Route index element={<Dictionary />} />
           <Route path="quiz" element={<Quiz />} />
           <Route path="songs" element={<Song />} />
+          <Route path="players" element={<Player />} />
         </Route>
       </Routes>
     </BrowserRouter>
