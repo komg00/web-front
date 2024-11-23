@@ -9,6 +9,7 @@ import Profile from "components/myPage/Profile";
 import Diary from "components/myPage/Diary";
 import Dictionarypage from "pages/DictionaryPage";
 import Dictionary from "components/dictionary/Dictionary";
+import Quiz from "components/dictionary/Quiz";
 
 const AppRouter: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const AppRouter: React.FC = () => {
         </Route>
         <Route path="/dictionary" element={<Dictionarypage />}>
           <Route index element={<Dictionary />} />
+          <Route path="quiz" element={<Quiz />} />
         </Route>
       </Routes>
     </BrowserRouter>
