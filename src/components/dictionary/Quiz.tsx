@@ -2,7 +2,7 @@ import React from "react";
 
 type Props = {};
 
-export default function Quiz({}: Props) {
+export default function Quiz() {
   return (
     <div className="flex-1">
       <div className="w-full py-4 lg:py-6 flex justify-around items-center bg-white">

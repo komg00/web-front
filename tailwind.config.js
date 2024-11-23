@@ -13,10 +13,13 @@ module.exports = {
         dark1: "#21272A",
         dark2: "#666666",
         dark3: "#999999",
+        dark4: "#747474",
         main1: "#028174",
         main2: "#00B286",
         light1: "#CCCCCC",
+        light2: "#E1E1E1",
         light3: "#F5F5F5",
+        kia: "#06141D",
       },
       minHeight: {
         "screen-90": "calc(100vh-90px)",

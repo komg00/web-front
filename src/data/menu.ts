@@ -50,5 +50,9 @@ export const dictionaryMenu = [
     icon: HiOutlineClipboardList,
     link: "/dictionary/players",
   },
-  { title: "구단별 응원가", icon: HiOutlineMusicNote, link: "/mypage/songs" },
+  {
+    title: "구단별 응원가",
+    icon: HiOutlineMusicNote,
+    link: "/dictionary/songs",
+  },
 ];

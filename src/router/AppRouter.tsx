@@ -10,6 +10,7 @@ import Diary from "components/myPage/Diary";
 import Dictionarypage from "pages/DictionaryPage";
 import Dictionary from "components/dictionary/Dictionary";
 import Quiz from "components/dictionary/Quiz";
+import Song from "components/dictionary/Song";
 
 const AppRouter: React.FC = () => {
   return (
@@ -27,6 +28,7 @@ const AppRouter: React.FC = () => {
         <Route path="/dictionary" element={<Dictionarypage />}>
           <Route index element={<Dictionary />} />
           <Route path="quiz" element={<Quiz />} />
+          <Route path="songs" element={<Song />} />
         </Route>
       </Routes>
     </BrowserRouter>
