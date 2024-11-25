@@ -6,17 +6,18 @@ import {
   HiOutlineDotsCircleHorizontal,
   HiOutlineUser,
   HiOutlineCalendar,
-  HiOutlineVideoCamera,
-  HiOutlineCog,
+  HiSearch,
   HiOutlineBookOpen,
   HiOutlineQuestionMarkCircle,
   HiOutlineClipboardList,
   HiOutlineMusicNote,
+  HiOutlinePencilAlt,
+  HiOutlineNewspaper,
 } from "react-icons/hi";
 
 export const homeMenu = [
   { title: "시야 정보", icon: HiOutlineLocationMarker },
-  { title: "관람 일지", icon: HiOutlineCalendar },
+  { title: "관람 일지", icon: HiOutlineNewspaper },
   { title: "토론", icon: HiOutlineChatAlt2 },
   { title: "잡담/수다", icon: HiOutlineVolumeUp },
   { title: "꿀팁 공유", icon: HiOutlineSparkles },
@@ -31,11 +32,11 @@ export const mypageMenu = [
     link: "/mypage/diary",
   },
   {
-    title: "추천 경기 클립",
-    icon: HiOutlineVideoCamera,
+    title: "추천 클립",
+    icon: HiSearch,
     link: "/mypage/recommend",
   },
-  { title: "환경설정", icon: HiOutlineCog, link: "/mypage/settings" },
+  { title: "프로필 수정", icon: HiOutlinePencilAlt, link: "/mypage/edit" },
 ];
 
 export const dictionaryMenu = [
