@@ -15,7 +15,7 @@ export default function Video() {
             className="w-80 xl:w-96 mx-3 mt-5 flex flex-col"
           >
             <img src={item.image_path} alt="path" />
-            <h3 className="w-full whitespace-pre-wrap my-2 font-bold text-xl xl:text-2xl">
+            <h3 className="w-full whitespace-pre-wrap my-2 font-bold text-xl xl:text-2xl line-clamp-2">
               {item.title}
             </h3>
           </div>
@@ -32,7 +32,7 @@ export default function Video() {
             className="w-80 xl:w-96 mx-3 mt-5 flex flex-col"
           >
             <img src={item.image_path} alt="path" />
-            <h3 className="w-full whitespace-pre-wrap my-2 font-bold text-xl xl:text-2xl">
+            <h3 className="w-full whitespace-pre-wrap my-2 font-bold text-xl xl:text-2xl line-clamp-2">
               {item.title}
             </h3>
           </div>
