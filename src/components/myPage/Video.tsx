@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function Video() {
   const navigate = useNavigate();
   return (
-    <div className="flex-1">
+    <div className="flex-1 py-8 pl-6 sm:py-12 sm:px-6 lg:py-20 lg:pl-3 xl:pl-10">
       <div className="mr-5 bg-white flex p-4 sm:py-6 sm:px-10 my-6 border items-center justify-between">
         <h2 className="font-bold text-22px sm:text-3xl">맞춤 동영상</h2>
         <p
