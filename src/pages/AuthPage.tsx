@@ -9,12 +9,13 @@ type Props = {
 export default function AuthPage({ authType }: Props) {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
-  const handleAuthAction = () => {
+  const handleAuthAction = async () => {
+    console.log(`type: ${authType}`);
     if (authType === "signIn") {
       // 추후 로그인 로직 추가
       navigate("/home");
@@ -49,10 +50,10 @@ export default function AuthPage({ authType }: Props) {
           </div>
         )}
         <InputField
-          label="Email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          label="Username"
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         ></InputField>
         <InputField
           label="Password"
