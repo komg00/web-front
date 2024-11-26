@@ -1,5 +1,6 @@
 import React from "react";
 import { teamInfo, matchInfo, scoreboard } from "data/dummy/dashboard";
+import Scoreboard from "./Scoreboard";
 
 export default function Dashboard() {
   return (
@@ -34,7 +35,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="my-16 mx-20">
+      <div className="mx-16 mt-16 mb-2">
         <div className="bg-white shadow-sm my-8 px-24 py-10 flex justify-between items-center">
           <div className="flex items-center pl-10">
             <div className="flex flex-col text-xl">
@@ -72,6 +73,8 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
+      <Scoreboard />
     </div>
   );
 }
