@@ -34,7 +34,7 @@ export const mypageMenu = [
   {
     title: "추천 클립",
     icon: HiSearch,
-    link: "/mypage/recommend",
+    link: "/mypage/video",
   },
   { title: "프로필 수정", icon: HiOutlinePencilAlt, link: "/mypage/edit" },
 ];

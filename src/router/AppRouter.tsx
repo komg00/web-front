@@ -13,6 +13,9 @@ import Quiz from "components/dictionary/Quiz";
 import Song from "components/dictionary/Song";
 import Player from "components/dictionary/Player";
 import Video from "components/myPage/Video";
+import RecommendVideo from "components/myPage/RecommendVideo";
+import TeamVideo from "components/myPage/TeamVideo";
+import VideoPage from "pages/VideoPage";
 
 const AppRouter: React.FC = () => {
   return (
@@ -26,7 +29,11 @@ const AppRouter: React.FC = () => {
         <Route path="/mypage" element={<Mypage />}>
           <Route index element={<Profile />} />
           <Route path="diary" element={<Diary />} />
-          <Route path="recommend" element={<Video />} />
+          <Route path="video" element={<VideoPage />}>
+            <Route index element={<Video />} />
+            <Route path="recommend" element={<RecommendVideo />} />
+            <Route path="team" element={<TeamVideo />} />
+          </Route>
         </Route>
         <Route path="/dictionary" element={<Dictionarypage />}>
           <Route index element={<Dictionary />} />

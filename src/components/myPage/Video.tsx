@@ -1,12 +1,17 @@
 import { recommend_video, team_video } from "data/dummy/video";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Video() {
+  const navigate = useNavigate();
   return (
     <div className="flex-1">
       <div className="mr-5 bg-white flex p-4 sm:py-6 sm:px-10 my-6 border items-center justify-between">
         <h2 className="font-bold text-22px sm:text-3xl">맞춤 동영상</h2>
-        <p className="text-dark3 text-lg sm:text-2xl font-bold cursor-pointer">
+        <p
+          className="text-dark3 text-lg sm:text-2xl font-bold cursor-pointer"
+          onClick={() => navigate("recommend")}
+        >
           + 더보기
         </p>
       </div>
@@ -33,7 +38,10 @@ export default function Video() {
         <h2 className="font-bold text-22px sm:text-3xl">
           KIA 타이거즈 관련 영상
         </h2>
-        <p className="text-dark3 text-lg sm:text-2xl font-bold cursor-pointer">
+        <p
+          className="text-dark3 text-lg sm:text-2xl font-bold cursor-pointer"
+          onClick={() => navigate("team")}
+        >
           + 더보기
         </p>
       </div>
