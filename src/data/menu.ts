@@ -13,6 +13,8 @@ import {
   HiOutlineMusicNote,
   HiOutlinePencilAlt,
   HiOutlineNewspaper,
+  HiOutlinePlusCircle,
+  HiStatusOnline,
 } from "react-icons/hi";
 
 export const homeMenu = [
@@ -55,5 +57,14 @@ export const dictionaryMenu = [
     title: "구단별 응원가",
     icon: HiOutlineMusicNote,
     link: "/dictionary/songs",
+  },
+];
+
+export const dashboardMenu = [
+  { title: "중계", icon: HiOutlinePlusCircle, link: "/dashboard" },
+  {
+    title: "득점",
+    icon: HiStatusOnline,
+    link: "/dashboard/score",
   },
 ];
