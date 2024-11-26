@@ -2,6 +2,7 @@ import AuthButton from "components/auth/AuthButton";
 import InputField from "components/auth/InputField";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 type Props = {
   authType: string;
 };
@@ -13,12 +14,39 @@ export default function AuthPage({ authType }: Props) {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleAuthAction = async () => {
     console.log(`type: ${authType}`);
     if (authType === "signIn") {
-      // 추후 로그인 로직 추가
-      navigate("/home");
+      try {
+        const response = await axios.post(
+          "http://34.237.154.47:8080/api/auth/login",
+          {
+            username: username,
+            password: password,
+          }
+        );
+        console.log("실행");
+
+        if (response.status === 200) {
+          setErrorMessage("");
+          const { accesstoken } = response.data.data;
+          localStorage.setItem("accessToken", accesstoken);
+
+          alert("로그인에 성공했습니다.");
+          navigate("/home");
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setErrorMessage(
+            error.response?.data?.message ||
+              "로그인에 실패했습니다. 다시 시도해주세요."
+          );
+        } else {
+          setErrorMessage("네트워크 오류가 발생했습니다. 다시 시도해주세요.");
+        }
+      }
     } else {
       // 추후 회원가입 로직 추가
     }
@@ -61,6 +89,8 @@ export default function AuthPage({ authType }: Props) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         ></InputField>
+
+        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
 
         <AuthButton
           text={authType === "signUp" ? "Sign Up" : "Sign In"}
