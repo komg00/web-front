@@ -28,7 +28,7 @@ export default function BaseballCalendar() {
   console.log();
 
   return (
-    <>
+    <div className="py-8 pl-6 sm:py-12 sm:px-6 lg:py-20 lg:pl-3 xl:pl-10">
       <div className="w-auto md:w-[450px] lg:w-[360px] xl:w-[460px] mx-5 md:mx-0 lg:mr-4 bg-white py-10 px-4 xl:px-8 xl:py-20 shadow border">
         <Calendar
           onChange={handleDateChange}
@@ -40,6 +40,6 @@ export default function BaseballCalendar() {
           showNeighboringMonth={false}
         />
       </div>
-    </>
+    </div>
   );
 }
