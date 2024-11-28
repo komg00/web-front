@@ -25,7 +25,7 @@ function InputField({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="min-w-full appearance-none bg-lightGreen border-b-2 p-3 text-lg lg:text-2xl text-dark2 leading-tight focus:outline-green-700"
+        className="min-w-full appearance-none bg-lightGreen border-b-2 border-light2 p-3 text-lg lg:text-2xl text-dark2 leading-tight focus:outline-green-700"
       />
     </div>
   );
