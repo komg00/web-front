@@ -2,6 +2,7 @@ import AuthButton from "components/auth/AuthButton";
 import InputField from "components/auth/InputField";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { clubs } from "data/clubs";
 import axios from "axios";
 type Props = {
   authType: string;
@@ -12,12 +13,12 @@ export default function AuthPage({ authType }: Props) {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [team, setTeam] = useState("");
+  const [file, setFile] = useState<File | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleAuthAction = async () => {
-    console.log(`type: ${authType}`);
     if (authType === "signIn") {
       try {
         const response = await axios.post(
@@ -27,7 +28,6 @@ export default function AuthPage({ authType }: Props) {
             password: password,
           }
         );
-        console.log("실행");
 
         if (response.status === 200) {
           setErrorMessage("");
@@ -48,7 +48,33 @@ export default function AuthPage({ authType }: Props) {
         }
       }
     } else {
-      // 추후 회원가입 로직 추가
+      try {
+        const response = await axios.post(
+          "http://34.237.154.47:8080/api/auth/register",
+          {
+            username: username,
+            password: password,
+            email: email,
+            role: "USER",
+            team: team,
+            profileImage: "",
+          }
+        );
+
+        if (response.status === 200) {
+          alert("회원가입이 완료됐습니다.");
+          navigate("/signin");
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setErrorMessage(
+            error.response?.data?.message ||
+              "회원가입에 실패했습니다. 다시 시도해주세요."
+          );
+        } else {
+          setErrorMessage("네트워크 오류가 발생했습니다. 다시 시도해주세요.");
+        }
+      }
     }
   };
 
@@ -57,28 +83,12 @@ export default function AuthPage({ authType }: Props) {
       className="flex flex-col items-center justify-center bg-lightGreen "
       style={{ minHeight: "calc(100vh - 90px)" }}
     >
-      <div className="flex flex-col gap-8 w-2/3 h-5/6 bg-white px-8 py-10 lg:px-14 lg:py-16 xl:px-32 xl:py-24">
+      <div className="flex flex-col gap-6 w-2/3 h-5/6 bg-white px-8 py-10 lg:px-14 lg:py-16 xl:px-32 xl:py-24">
         <h1 className="text-4xl lg:text-5xl font-bold mb-6 lg:mb-12 text-left">
           {authType === "signUp" ? "Sign Up" : "Sign In"}
         </h1>
-        {authType === "signUp" && (
-          <div className="flex flex-col gap-3 lg:gap-0 xl:gap-x-8 lg:flex-row lg:justify-between xl:justify-normal ">
-            <InputField
-              label="First Name"
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            ></InputField>
-            <InputField
-              label="Last Name"
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            ></InputField>
-          </div>
-        )}
         <InputField
-          label="Username"
+          label="User Name"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -90,8 +100,36 @@ export default function AuthPage({ authType }: Props) {
           onChange={(e) => setPassword(e.target.value)}
         ></InputField>
 
+        {authType === "signUp" && (
+          <div className="flex flex-col">
+            <InputField
+              label="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></InputField>
+            <div className="flex flex-col my-5">
+              <label className="text-dark1 text-lg lg:text-2xl mb-2 lg:mb-3">
+                Team
+              </label>
+              <select
+                value={team}
+                onChange={(e) => setTeam(e.target.value)}
+                className="border border-gray-300 p-3 rounded-md text-lg lg:text-2xl"
+              >
+                <option value="" disabled>
+                  Select a team
+                </option>
+                {clubs.map((club) => (
+                  <option key={club.title} value={club.title}>
+                    {club.title}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        )}
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-
         <AuthButton
           text={authType === "signUp" ? "Sign Up" : "Sign In"}
           onClick={handleAuthAction}
