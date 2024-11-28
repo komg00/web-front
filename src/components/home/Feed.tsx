@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import { Post } from "types/post";
-import { fetchPosts } from "api/postApi";
+import { fetchPosts, likePost } from "api/postApi";
 
 export default function Feed() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -25,6 +25,16 @@ export default function Feed() {
 
     loadPosts();
   }, []);
+
+  // 좋아요 누르기
+  const handleLike = async (postId: number) => {
+    try {
+      await likePost(postId);
+      alert("게시글을 좋아요했습니다!");
+    } catch (error: any) {
+      alert(error.message || "Failed to like post");
+    }
+  };
 
   return (
     <div className="flex flex-col gap-10">
@@ -55,7 +65,11 @@ export default function Feed() {
               <img src={post.imageUrl} alt="sample" className="w-80 h-80" />
             )}
             <div className="flex items-center gap-1.5 mt-5">
-              <FiThumbsUp size={23} color="#333" />
+              <FiThumbsUp
+                size={23}
+                color="#333"
+                onClick={() => handleLike(post.postId)}
+              />
               <span className="mr-2">{post.countLike}</span>
               <FiMessageSquare size={23} color="#333" />
               <span>{post.countComment}</span>
