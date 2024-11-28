@@ -29,7 +29,7 @@ export const fetchPosts = async (category: string, pageSize: number) => {
   }
 };
 
-export const likePost = async (postId: number): Promise<void> => {
+export const likePost = async (postId: number): Promise<any> => {
   const url = `${API_BASE_URL}/posts/${postId}/likes`;
 
   const response = await fetch(url, {
@@ -41,10 +41,11 @@ export const likePost = async (postId: number): Promise<void> => {
     body: "",
   });
 
-  window.location.reload();
   if (!response.ok) {
-    throw new Error(
-      `Failed to like post: ${response.status} - ${response.statusText}`
-    );
+    const errorData = await response.json();
+    throw new Error(`${errorData.message || "Unknown error"}`);
   }
+
+  const data = await response.json();
+  return data;
 };

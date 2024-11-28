@@ -29,8 +29,18 @@ export default function Feed() {
   // 좋아요 누르기
   const handleLike = async (postId: number) => {
     try {
-      await likePost(postId);
-      alert("게시글을 좋아요했습니다!");
+      const responseData = await likePost(postId);
+      alert("게시글 좋아요에 성공하였습니다.");
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post.postId === postId
+            ? {
+                ...post,
+                countLike: responseData.data.likeCount, // 서버에서 반환된 좋아요 수로 업데이트
+              }
+            : post
+        )
+      );
     } catch (error: any) {
       alert(error.message || "Failed to like post");
     }
