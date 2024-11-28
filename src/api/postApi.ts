@@ -4,7 +4,6 @@ const API_BASE_URL = "http://34.237.154.47:8080";
 
 const AUTH_TOKEN = localStorage.getItem("accessToken");
 
-console.log("Auth token; ", AUTH_TOKEN);
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -48,4 +47,38 @@ export const likePost = async (postId: number): Promise<any> => {
 
   const data = await response.json();
   return data;
+};
+
+export const createPost = async (
+  title: string,
+  content: string,
+  category: string,
+  imageFile?: File
+): Promise<any> => {
+  const formData = new FormData();
+
+  formData.append(
+    "postDTO",
+    JSON.stringify({
+      title: title,
+      content: content,
+      category: category,
+    })
+  );
+  if (imageFile) {
+    formData.append("image", imageFile);
+  }
+
+  try {
+    const response = await apiClient.post("/posts", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data;
+  } catch (error: any) {
+    console.error("Failed to create post", error);
+    throw new Error(error.response?.data?.message || "API request failed");
+  }
 };
