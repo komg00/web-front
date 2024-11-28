@@ -1,37 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import { Post } from "types/post";
-import { fetchPosts, likePost } from "api/postApi";
+import { likePost } from "api/postApi";
 
-export default function Feed() {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+interface FeedProps {
+  posts: Post[];
+}
+
+export default function Feed({ posts }: FeedProps) {
+  const [likePosts, setLikePosts] = useState<Post[]>(posts);
 
   useEffect(() => {
-    const loadPosts = async () => {
-      try {
-        setLoading(true);
-        const data = await fetchPosts("VIEW", 2); // category와 pageSize 전달
-        setPosts(data);
-        console.log(data);
-        setError(null);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadPosts();
-  }, []);
+    setLikePosts(posts);
+  }, [posts]);
 
   // 좋아요 누르기
   const handleLike = async (postId: number) => {
     try {
       const responseData = await likePost(postId);
       alert("게시글 좋아요에 성공하였습니다.");
-      setPosts((prevPosts) =>
+      setLikePosts((prevPosts) =>
         prevPosts.map((post) =>
           post.postId === postId
             ? {
@@ -48,7 +36,7 @@ export default function Feed() {
 
   return (
     <div className="flex flex-col gap-10">
-      {posts.map((post) => (
+      {likePosts.map((post) => (
         <div
           key={post.postId}
           className="min-w-[440px] md:min-w-[520px] lg:min-w-xl xl:min-w-[700px] mx-2 md:mx-0 p-6 md:p-10 md:py-6 bg-white"
@@ -70,6 +58,7 @@ export default function Feed() {
             </div>
           </div>
           <div className="px-2 py-1 md:px-2.5 xl:px-6">
+            <h2 className="font-bold text-dark1 text-lg">{post.title}</h2>
             <p className="my-2 text-dark1">{post.content}</p>
             {post.imageUrl && (
               <img src={post.imageUrl} alt="sample" className="w-80 h-80" />

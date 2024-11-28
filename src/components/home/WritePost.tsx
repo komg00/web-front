@@ -3,6 +3,7 @@ import { clubs } from "data/clubs";
 import { homeMenu } from "data/menu";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { createPost } from "api/postApi";
+import { Post } from "types/post";
 
 const categoryMapping: { [key: string]: string } = {
   "시야 정보": "VIEW",
@@ -13,7 +14,11 @@ const categoryMapping: { [key: string]: string } = {
   기타: "ETC",
 };
 
-export default function WritePost() {
+interface WritePostProps {
+  addPost: (newPost: Post) => void;
+}
+
+export default function WritePost({ addPost }: WritePostProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState<File | null>(null);
@@ -36,16 +41,14 @@ export default function WritePost() {
 
     try {
       const category = categoryMapping[selectedCategory];
+      let newPostData: Post;
       if (image) {
-        const postData = await createPost(title, content, category, image);
-
-        console.log(postData);
+        newPostData = await createPost(title, content, category, image);
       } else {
-        // If no image, create post without it
-        const postData = await createPost(title, content, category);
-
-        console.log(postData);
+        newPostData = await createPost(title, content, category);
       }
+      addPost(newPostData);
+
       setTitle("");
       setContent("");
       setImage(null);
