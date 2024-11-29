@@ -2,13 +2,11 @@ import axios from "axios";
 
 const API_BASE_URL = "http://34.237.154.47:8080";
 
-const AUTH_TOKEN = localStorage.getItem("accessToken");
-
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     accept: "*/*",
-    Authorization: `Bearer ${AUTH_TOKEN}`,
+    Authorization: `Bearer ${localStorage.getItem("accessToken") || ""}`,
   },
 });
 
@@ -35,7 +33,7 @@ export const likePost = async (postId: number): Promise<any> => {
     method: "POST",
     headers: {
       Accept: "*/*",
-      Authorization: `Bearer ${AUTH_TOKEN}`,
+      Authorization: `Bearer ${localStorage.getItem("accessToken") || ""}`,
     },
     body: "",
   });
@@ -80,5 +78,24 @@ export const createPost = async (
   } catch (error: any) {
     console.error("Failed to create post", error);
     throw new Error(error.response?.data?.message || "API request failed");
+  }
+};
+
+// 댓글 등록 API
+export const addComment = async (postId: number, content: string) => {
+  try {
+    const response = await apiClient.post(
+      `/posts/${postId}/comments`,
+      { content },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error("Failed to add comment", error);
+    throw new Error(error.response?.data?.message || "Failed to add comment");
   }
 };

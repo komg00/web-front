@@ -28,7 +28,7 @@ export default function Home() {
     };
 
     loadPosts();
-  }, [posts]);
+  }, []);
 
   // 새 포스트가 작성되면 Feed에 추가
   const addPost = (newPost: Post) => {
