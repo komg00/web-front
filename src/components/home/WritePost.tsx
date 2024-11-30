@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { clubs } from "data/clubs";
-import { homeMenu } from "data/menu";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { createPost } from "api/postApi";
 import { Post } from "types/post";
@@ -81,24 +79,7 @@ export default function WritePost({ addPost }: WritePostProps) {
         </div>
       </div>
 
-      <div className="w-auto flex justify-between items-center my-4 xl:px-5 mt-8 md:mt-10">
-        <div className="flex justify-center items-center">
-          <label
-            htmlFor="club"
-            className="xl:mx-2 text-xs md:text-base xl:text-lg"
-          >
-            구단
-          </label>
-          <select
-            id="club"
-            className="p-2 border rounded-md text-xs md:text-base xl:text-lg"
-          >
-            <option>전체</option>
-            {clubs.map((club) => (
-              <option>{club.title}</option>
-            ))}
-          </select>
-        </div>
+      <div className="w-5/6 flex justify-between items-center my-4 xl:px-5 ml-auto mt-8 md:mt-10">
         <div className="flex justify-center items-center">
           <label
             htmlFor="category"
