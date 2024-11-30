@@ -16,7 +16,7 @@ export default function Home() {
     const loadPosts = async () => {
       try {
         setLoading(true);
-        const data = await fetchPosts("VIEW", 2); // category와 pageSize 전달
+        const data = await fetchPosts("VIEW", 1000); // category와 pageSize 전달
         setPosts(data);
         console.log(data);
         setError(null);

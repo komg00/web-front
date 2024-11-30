@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { FiThumbsUp, FiMessageSquare, FiSend } from "react-icons/fi";
 import { Post } from "types/post";
-import { addComment, likePost } from "api/postApi";
+import { addComment, likePost, fetchPostDetail } from "api/postApi";
 import Modal from "components/layout/Modal";
+
+interface Comment {
+  authorName: string;
+  authorProfileImage: string;
+  authorTeam: string;
+  commentId: number;
+  content: string;
+  createdDate: string;
+}
 
 interface FeedProps {
   posts: Post[];
@@ -11,9 +20,9 @@ interface FeedProps {
 export default function Feed({ posts }: FeedProps) {
   const [likePosts, setLikePosts] = useState<Post[]>(posts);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [newComment, setNewComment] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [commentContent, setCommentContent] = useState<string>("");
-  const [comments, setComments] = useState<{ content: string }[]>([]);
 
   useEffect(() => {
     setLikePosts(posts);
@@ -39,26 +48,34 @@ export default function Feed({ posts }: FeedProps) {
     }
   };
 
+  const openModal = async (post: Post) => {
+    try {
+      const { post: postDetail, comments: postComments } =
+        await fetchPostDetail(post.postId);
+
+      setSelectedPost(postDetail);
+      setComments(postComments);
+      setIsModalOpen(true);
+    } catch (error: any) {
+      console.error("Failed to fetch post detail", error);
+    }
+  };
+
   // 댓글 등록
   const handleAddComment = async () => {
     if (!selectedPost) return;
-    if (!commentContent.trim()) {
+    if (!newComment.trim()) {
       alert("댓글 내용을 입력하세요.");
       return;
     }
 
     try {
-      await addComment(selectedPost.postId, commentContent);
-      setComments([...comments, { content: commentContent }]);
-      setCommentContent("");
+      const response = await addComment(selectedPost.postId, newComment);
+      setComments((prevComments) => [...prevComments, response.data]);
+      setNewComment("");
     } catch (error: any) {
       alert(error.message || "댓글 등록에 실패했습니다.");
     }
-  };
-
-  const openModal = (post: Post) => {
-    setSelectedPost(post);
-    setIsModalOpen(true);
   };
 
   return (
@@ -149,19 +166,46 @@ export default function Feed({ posts }: FeedProps) {
                 <span>{selectedPost.countComment}</span>
               </div>
             </div>
-            <div className="w-full relative flex px-2 m-3 items-start">
-              <textarea
-                className="w-full border rounded-md p-3"
-                value={commentContent}
-                onChange={(e) => setCommentContent(e.target.value)}
-                placeholder="댓글을 입력하세요"
-              />
-              <FiSend
-                color="#666666"
-                size={20}
-                onClick={handleAddComment}
-                className="absolute top-3 right-4 cursor-pointer"
-              />
+            <div className="w-full h-[620px] flex flex-col ml-4 -mt-7 py-4 items-start overflow-auto">
+              {comments.map((comment) => (
+                <div
+                  key={comment.commentId}
+                  className="border rounded-md px-3 py-1 my-2 w-full"
+                >
+                  <div className="flex items-center xl:px-4 mt-2">
+                    <img
+                      src={
+                        comment.authorProfileImage
+                          ? comment.authorProfileImage
+                          : "/assets/images/default_profile.svg"
+                      }
+                      alt="profile"
+                      className="w-[40px]"
+                    />
+                    <div className="flex flex-col ml-1 text-sm text-dark1">
+                      <p className="font-extrabold">{comment.authorName}</p>
+                      <p className="text-dark3 text-xs">
+                        {comment.createdDate}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="tex-sm m-1.5">{comment.content}</p>
+                </div>
+              ))}
+              <div className="flex w-full h-14 mt-auto">
+                <textarea
+                  className="w-full border rounded-md p-3"
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  placeholder="댓글을 입력하세요"
+                />
+                <FiSend
+                  color="#666666"
+                  size={20}
+                  onClick={handleAddComment}
+                  className=" cursor-pointer -ml-7 mt-3"
+                />
+              </div>
             </div>
           </div>
         </Modal>

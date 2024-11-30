@@ -99,3 +99,19 @@ export const addComment = async (postId: number, content: string) => {
     throw new Error(error.response?.data?.message || "Failed to add comment");
   }
 };
+
+export const fetchPostDetail = async (postId: number) => {
+  try {
+    const response = await apiClient.get(`/posts/${postId}`);
+    const postData = response.data.data;
+    return {
+      post: postData.post,
+      comments: postData.comments,
+    };
+  } catch (error: any) {
+    console.error("Failed to fetch post detail", error);
+    throw new Error(
+      error.response?.data?.message || "Failed to fetch post detail"
+    );
+  }
+};
