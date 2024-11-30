@@ -4,6 +4,7 @@ import DiaryDetails from "./DiaryDetails";
 import { useSelector } from "react-redux";
 import { RootState } from "store/store";
 import { diaryList } from "data/dummy/diary";
+import WriteDiary from "./WriteDiary";
 
 export default function Diary() {
   const selectedDate = useSelector(
@@ -21,9 +22,7 @@ export default function Diary() {
       {filteredDiary ? (
         <DiaryDetails key={filteredDiary.record_id} diary={filteredDiary} />
       ) : (
-        <div className="w-auto md:w-[450px] lg:w-auto xl:w-full xl:max-w-[660px] lg:flex-1 mx-5 my-2 md:m-0 xl:mx-4 p-10 text-xl font-semibold text-dark2 bg-white shadow border">
-          관람일지를 작성해 주세요!
-        </div>
+        <WriteDiary />
       )}
     </div>
   );
