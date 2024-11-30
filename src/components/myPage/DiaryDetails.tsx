@@ -21,7 +21,7 @@ const DiaryDetails: React.FC<{ diary: Diary }> = ({ diary }) => {
     }));
   };
   return (
-    <div className="w-auto md:w-[450px] lg:w-auto xl:w-full xl:max-w-[660px] lg:flex-1 mx-5 my-2 md:m-0 xl:mx-4 p-6 sm:p-10 xl:py-10 xl:px-13 bg-white shadow border flex flex-col gap-y-2">
+    <div className="w-auto md:w-[450px] lg:w-auto xl:w-full xl:max-w-[660px] lg:flex-1 mx-5 lg:ml-0 lg:my-20 p-6 sm:p-10 xl:py-10 xl:px-13 bg-white shadow border flex flex-col gap-y-2">
       {/* Match Date */}
       <div className="flex justify-between items-center my-5 mb-10">
         <button
