@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Diary } from "data/dummy/diary";
 import {
   HiCheck,
   HiOutlineReply,
@@ -8,6 +7,7 @@ import {
 } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { RootState } from "store/store";
+import { clubs } from "data/clubs";
 
 const WriteDiary: React.FC = () => {
   const matchDate = useSelector(
@@ -18,12 +18,14 @@ const WriteDiary: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [place, setPlace] = useState("");
   const [seat, setSeat] = useState("");
-  const [team1, setTeam1] = useState("");
+  const [team1, setTeam1] = useState(clubs[0]);
+  const [team2, setTeam2] = useState(clubs[1]);
   const [team1Score, setTeam1Score] = useState("");
-  const [team2, setTeam2] = useState("");
   const [team2Score, setTeam2Score] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState("");
+  const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
+  const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
 
   return (
     <div className="w-auto md:w-[450px] lg:w-auto xl:w-full xl:max-w-[660px] lg:flex-1 mx-5 lg:ml-0 lg:my-20 p-6 sm:p-10 xl:py-10 xl:px-13 bg-white shadow border flex flex-col gap-y-2">
@@ -80,28 +82,93 @@ const WriteDiary: React.FC = () => {
           스코어
         </label>
         <div className="flex items-center gap-x-6">
+          {/* Team Selection - Team 1 */}
           <div className="flex items-center gap-3">
-            <img src={""} alt="team 1" className="w-10 h-10 xl:w-12 xl:h-12" />
+            <div className="relative">
+              <div
+                onClick={() => setIsDropdownOpen1(!isDropdownOpen1)}
+                className="flex items-center cursor-pointer"
+              >
+                <img
+                  src={team1.imagePath}
+                  alt={team1.title}
+                  className="w-12 h-12"
+                />
+              </div>
+              {isDropdownOpen1 && (
+                <ul className="absolute z-10 bg-white border rounded-md mt-2 w-[160px] max-h-40 overflow-y-auto">
+                  {clubs.map((club) => (
+                    <li
+                      key={club.title}
+                      onClick={() => {
+                        setTeam1(club);
+                        setIsDropdownOpen1(false);
+                      }}
+                      className="flex items-center gap-2 px-2 py-2 hover:bg-gray-200 cursor-pointer"
+                    >
+                      <img
+                        src={club.imagePath}
+                        alt={club.title}
+                        className="w-8 h-8"
+                      />
+                      <span>{club.title}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
             <input
               type="text"
               name="team1_score1"
               value={team1Score}
               onChange={(e) => setTeam1Score(e.target.value)}
-              className="w-14 xl:w-16 py-1 px-2 xl:px-3 xl:py-2 border rounded-md font-semibold text-xl xl:text-2xl"
+              className="w-14 xl:w-16 py-1 px-2 xl:px-3 xl:py-2 border rounded-md font-semibold text-lg xl:text-xl"
             />
-            <span className="font-semibold text-xl xl:text-2xl">
-              {team2Score}
-            </span>
           </div>
           <span className="text-xl xl:text-2xl font-bold">:</span>
+
+          {/* Team Selection - Team 2 */}
           <div className="flex items-center gap-2">
-            <img src={""} alt="team 2" className="w-10 h-10 xl:w-12 xl:h-12" />
+            <div className="relative">
+              <div
+                onClick={() => setIsDropdownOpen2(!isDropdownOpen2)}
+                className="flex items-center cursor-pointer"
+              >
+                <img
+                  src={team2.imagePath}
+                  alt={team2.title}
+                  className="w-12 h-12"
+                />
+              </div>
+              {isDropdownOpen2 && (
+                <ul className="absolute z-10 bg-white border rounded-md mt-2 w-[160px] max-h-40 overflow-y-auto">
+                  {clubs.map((club) => (
+                    <li
+                      key={club.title}
+                      onClick={() => {
+                        setTeam2(club);
+                        setIsDropdownOpen2(false);
+                      }}
+                      className="flex items-center gap-2 px-2 py-2 hover:bg-gray-200 cursor-pointer"
+                    >
+                      <img
+                        src={club.imagePath}
+                        alt={club.title}
+                        className="w-8 h-8"
+                      />
+                      <span>{club.title}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
             <input
               type="text"
               name="team2_score"
               value={team2Score}
               onChange={(e) => setTeam2Score(e.target.value)}
-              className="w-14 xl:w-16 py-1 px-2 xl:px-3 xl:py-2 border rounded-md font-semibold text-xl xl:text-2xl"
+              className="w-14 xl:w-16 py-1 px-2 xl:px-3 xl:py-2 border rounded-md font-semibold text-lg xl:text-xl"
             />
           </div>
         </div>
