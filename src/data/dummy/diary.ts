@@ -14,7 +14,7 @@ export interface Diary {
 export const diaryList: Diary[] = [
   {
     record_id: 1,
-    match_date: "2024. 03. 23",
+    match_date: "2024-03-23",
     match_place: "SSG 랜더스 필드",
     seat: "404블록",
     team1_image_path: "/assets/images/club/ssg.svg",
@@ -25,7 +25,7 @@ export const diaryList: Diary[] = [
   },
   {
     record_id: 2,
-    match_date: "2024. 08. 15",
+    match_date: "2024-08-15",
     match_place: "고척스카이돔",
     seat: "401구역",
     team1_image_path: "/assets/images/club/kia.svg",

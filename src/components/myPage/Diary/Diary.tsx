@@ -11,13 +11,10 @@ export default function Diary() {
   );
 
   const filteredDiary = diaryList.find(
-    (diary) =>
-      diary.match_date === selectedDate?.split("T")[0]?.replace(/-/g, ". ")
+    (diary) => diary.match_date === selectedDate
   );
-
-  const filterdata = selectedDate?.split("T")[0]?.replace(/-/g, ". ");
   console.log(selectedDate);
-  console.log(filterdata);
+
   return (
     <div className="flex flex-col lg:flex-row">
       <BaseballCalendar />

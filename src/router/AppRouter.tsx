@@ -6,7 +6,7 @@ import AuthPage from "pages/AuthPage";
 import HomePage from "pages/HomePage";
 import Mypage from "pages/Mypage";
 import Profile from "components/myPage/Profile";
-import Diary from "components/myPage/Diary";
+import Diary from "components/myPage/Diary/Diary";
 import Dictionarypage from "pages/DictionaryPage";
 import Dictionary from "components/dictionary/Dictionary";
 import Quiz from "components/dictionary/Quiz";

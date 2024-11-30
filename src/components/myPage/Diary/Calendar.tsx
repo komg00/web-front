@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import moment from "moment";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import "../../styles/calendarStyles.css";
+import "../../../styles/calendarStyles.css";
 import { useDispatch } from "react-redux";
 import { setSelectedDate } from "store/slices/calendarSlice";
 
@@ -17,10 +17,10 @@ export default function BaseballCalendar() {
     setLocalSelectedDate(date);
     const formattedDate = Array.isArray(date)
       ? date[0]
-        ? moment(date[0]).toISOString()
+        ? moment(date[0]).format("YYYY-MM-DD")
         : null
       : date
-      ? moment(date).toISOString()
+      ? moment(date).format("YYYY-MM-DD")
       : null;
     dispatch(setSelectedDate(formattedDate));
   };
