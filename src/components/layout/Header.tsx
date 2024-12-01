@@ -1,10 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
 
 export default function Header() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    setIsLoggedIn(!!token);
+    console.log("상태", isLoggedIn);
+  }, [isLoggedIn]);
+
+  // 로그아웃 처리
+  const handleSignOut = () => {
+    localStorage.removeItem("accessToken");
+    alert("로그아웃했습니다.");
+    window.location.reload();
+    setIsLoggedIn(false);
+    navigate("/");
+  };
 
   return (
     <header className="w-full flex items-center justify-between px-9 py-4 bg-white border-b-2 border-gray-200">
@@ -12,7 +28,7 @@ export default function Header() {
         src={"/assets/images/logo.svg"}
         alt="logo"
         className="cursor-pointer"
-        onClick={() => navigate("/home")}
+        onClick={() => (isLoggedIn ? navigate("/home") : navigate("/"))}
       />
       <div
         className={`${
@@ -45,12 +61,21 @@ export default function Header() {
         </Link>
       </div>
       <div className="flex items-center justify-center space-x-3">
-        <button
-          className="dark2 hover:text-black hover:font-semibold mx-2 cursor-pointer"
-          onClick={() => navigate("/signin")}
-        >
-          Sign In
-        </button>
+        {isLoggedIn ? (
+          <button
+            className="dark2 hover:text-black hover:font-semibold mx-2 cursor-pointer"
+            onClick={handleSignOut}
+          >
+            Sign Out
+          </button>
+        ) : (
+          <button
+            className="dark2 hover:text-black hover:font-semibold mx-2 cursor-pointer"
+            onClick={() => navigate("/signin")}
+          >
+            Sign In
+          </button>
+        )}
         <img
           src={"/assets/images/chat.svg"}
           alt="chat"

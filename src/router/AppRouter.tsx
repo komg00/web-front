@@ -19,6 +19,7 @@ import VideoPage from "pages/VideoPage";
 import DashboardPage from "pages/DashboardPage";
 import Dashboard from "components/dashboard/Dashboard";
 import Score from "components/dashboard/Score";
+import PrivateRoute from "./PrivateRoute";
 
 const AppRouter: React.FC = () => {
   return (
@@ -26,10 +27,11 @@ const AppRouter: React.FC = () => {
       <Header />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<HomePage />} />
         <Route path="/signup" element={<AuthPage authType="signUp" />} />
         <Route path="/signin" element={<AuthPage authType="signIn" />} />
-        <Route path="/mypage" element={<Mypage />}>
+
+        <Route path="/home" element={<PrivateRoute element={<HomePage />} />} />
+        <Route path="/mypage" element={<PrivateRoute element={<Mypage />} />}>
           <Route index element={<Profile />} />
           <Route path="diary" element={<Diary />} />
           <Route path="video" element={<VideoPage />}>
@@ -38,13 +40,19 @@ const AppRouter: React.FC = () => {
             <Route path="team" element={<TeamVideo />} />
           </Route>
         </Route>
-        <Route path="/dictionary" element={<Dictionarypage />}>
+        <Route
+          path="/dictionary"
+          element={<PrivateRoute element={<Dictionarypage />} />}
+        >
           <Route index element={<Dictionary />} />
           <Route path="quiz" element={<Quiz />} />
           <Route path="songs" element={<Song />} />
           <Route path="players" element={<Player />} />
         </Route>
-        <Route path="/dashboard" element={<DashboardPage />}>
+        <Route
+          path="/dashboard"
+          element={<PrivateRoute element={<DashboardPage />} />}
+        >
           <Route index element={<Dashboard />} />
           <Route path="score" element={<Score />} />
         </Route>
