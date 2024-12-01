@@ -1,26 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BaseballCalendar from "./Calendar";
 import DiaryDetails from "./DiaryDetails";
+import WriteDiary from "./WriteDiary";
 import { useSelector } from "react-redux";
 import { RootState } from "store/store";
-import { diaryList } from "data/dummy/diary";
-import WriteDiary from "./WriteDiary";
+import { fetchDiaries } from "api/diaryApi";
 
 export default function Diary() {
   const selectedDate = useSelector(
     (state: RootState) => state.calendar.selectedDate
   );
 
-  const filteredDiary = diaryList.find(
-    (diary) => diary.match_date === selectedDate
+  const [diaries, setDiaries] = useState<Diary[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDiaryData = async () => {
+      try {
+        const data = await fetchDiaries();
+        setDiaries(data);
+      } catch (error) {
+        console.error("일지 목록을 가져오는 중 오류 발생:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDiaryData();
+  }, []);
+
+  const filteredDiary = diaries.find(
+    (diary) => diary.matchDate === selectedDate
   );
-  console.log(selectedDate);
+
+  console.log("응답 데이터:", filteredDiary);
+  if (loading) {
+    return <div>Loading...</div>; // 로딩 중 메시지 표시
+  }
 
   return (
     <div className="flex flex-col lg:flex-row">
       <BaseballCalendar />
       {filteredDiary ? (
-        <DiaryDetails key={filteredDiary.record_id} diary={filteredDiary} />
+        <DiaryDetails key={filteredDiary.id} diary={filteredDiary} />
       ) : (
         <WriteDiary />
       )}
