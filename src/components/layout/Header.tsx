@@ -1,17 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
+import { getMemberInfo, MemberInfo } from "api/memberApi";
 
 export default function Header() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [memberInfo, setMemberInfo] = useState<MemberInfo | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     setIsLoggedIn(!!token);
-    console.log("상태", isLoggedIn);
+    const fetchMemberInfo = async () => {
+      try {
+        const data = await getMemberInfo();
+        setMemberInfo(data);
+        console.log(data);
+      } catch (error: any) {
+        setError("Failed to fetch member info.");
+        console.error("Error:", error.message);
+      }
+    };
+
+    fetchMemberInfo();
   }, [isLoggedIn]);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!memberInfo) {
+    return <div>Loading...</div>;
+  }
 
   // 로그아웃 처리
   const handleSignOut = () => {
@@ -82,10 +104,10 @@ export default function Header() {
           className="cursor-pointer"
         />
         <img
-          src={"/assets/images/default_profile.svg"}
+          src={memberInfo.profileImageUrl}
           alt="profile"
           onClick={() => navigate("/mypage")}
-          className="cursor-pointer"
+          className="cursor-pointer w-10 rounded-full border border-dark3"
         />
       </div>
 
