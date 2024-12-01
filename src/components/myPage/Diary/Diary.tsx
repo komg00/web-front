@@ -12,6 +12,7 @@ export default function Diary() {
   );
 
   const [diaries, setDiaries] = useState<Diary[]>([]);
+  const [matchDates, setMatchDates] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,6 +20,9 @@ export default function Diary() {
       try {
         const data = await fetchDiaries();
         setDiaries(data);
+
+        const dates = data.map((diary: Diary) => diary.matchDate);
+        setMatchDates(dates);
       } catch (error) {
         console.error("일지 목록을 가져오는 중 오류 발생:", error);
       } finally {
@@ -38,9 +42,10 @@ export default function Diary() {
     return <div>Loading...</div>; // 로딩 중 메시지 표시
   }
 
+  console.log(matchDates);
   return (
     <div className="flex flex-col lg:flex-row">
-      <BaseballCalendar />
+      <BaseballCalendar matchDates={matchDates} />
       {filteredDiary ? (
         <DiaryDetails key={filteredDiary.id} diary={filteredDiary} />
       ) : (

@@ -71,14 +71,15 @@
 
 .react-calendar__tile--hasActive {
   background: #00b286 !important;
-  color: white;
-  font-weight: 600;
+  color: white !important;
+  font-weight: 600 !important;
 }
 
 /* 달력 각 버튼*/
 .react-calendar button {
   padding: 10px;
   border-radius: 10px;
+  position: relative;
 }
 
 /* 미디어 쿼리 추가 */
@@ -111,4 +112,30 @@
   .react-calendar {
     font-size: 1.6rem;
   }
+}
+
+/* 버튼 비활성화 시 */
+.react-calendar__tile:disabled {
+  background-color: white;
+}
+
+.react-calendar__tile--now {
+  background-color: white;
+  color: black;
+  font-weight: 500;
+}
+
+.react-calendar__month-view__days {
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  position: absolute;
+  top: 12px;
+  background-image: url("../../public/assets/images/baseball_icon.svg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }

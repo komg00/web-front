@@ -8,8 +8,24 @@ import { setSelectedDate } from "store/slices/calendarSlice";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
-
-export default function BaseballCalendar() {
+type BaseballCalendarProps = {
+  matchDates: string[];
+};
+const matchDate = [
+  "2024-11-26",
+  "2024-11-30",
+  "2024-12-01",
+  "2024-11-27",
+  "2024-10-16",
+  "2024-11-20",
+  "2024-11-07",
+  "2024-11-28",
+  "2024-11-29",
+  "2024-11-25",
+];
+export default function BaseballCalendar({
+  matchDates,
+}: BaseballCalendarProps) {
   const dispatch = useDispatch();
   const [selectedDate, setLocalSelectedDate] = useState<Value>(new Date());
 
@@ -36,6 +52,20 @@ export default function BaseballCalendar() {
           next2Label={null}
           formatDay={(locale, date) => moment(date).format("D")}
           showNeighboringMonth={false}
+          maxDate={new Date()}
+          tileContent={({ date, view }) => {
+            const isMarked = matchDates.includes(
+              moment(date).format("YYYY-MM-DD")
+            );
+            return (
+              isMarked &&
+              view === "month" && (
+                <div className="flex justify-center items-center absoluteDiv">
+                  <div className="icon"></div>
+                </div>
+              )
+            );
+          }}
         />
       </div>
     </div>
