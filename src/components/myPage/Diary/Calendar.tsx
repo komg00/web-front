@@ -11,18 +11,7 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 type BaseballCalendarProps = {
   matchDates: string[];
 };
-const matchDate = [
-  "2024-11-26",
-  "2024-11-30",
-  "2024-12-01",
-  "2024-11-27",
-  "2024-10-16",
-  "2024-11-20",
-  "2024-11-07",
-  "2024-11-28",
-  "2024-11-29",
-  "2024-11-25",
-];
+
 export default function BaseballCalendar({
   matchDates,
 }: BaseballCalendarProps) {
