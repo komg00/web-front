@@ -26,6 +26,7 @@ const WriteDiary: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
   const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,6 +73,7 @@ const WriteDiary: React.FC = () => {
       formData.append("image", image);
     }
 
+    setIsLoading(true);
     try {
       const response = await axios.post(
         "http://34.237.154.47:8080/users/me/game_diaries",
@@ -85,6 +87,7 @@ const WriteDiary: React.FC = () => {
       );
       console.log("응답 데이터:", response.data);
       alert("관람 일지가 성공적으로 저장되었습니다.");
+      window.location.reload();
       setPlace("");
       setTeam1(clubs[0]);
       setTeam1Score("");
@@ -96,6 +99,9 @@ const WriteDiary: React.FC = () => {
     } catch (error) {
       console.error("일지 저장 중 오류 발생:", error);
       alert("관람 일지를 저장하는 중에 오류가 발생했습니다.");
+    } finally {
+      setIsLoading(false);
+      setIsWriting(false);
     }
   };
 
@@ -115,16 +121,39 @@ const WriteDiary: React.FC = () => {
         <h2 className="text-xl md:text-xl lg:text-2xl xl:text-3xl font-bold text-center">
           {matchDate}
         </h2>
-        <button
-          onClick={() => setIsWriting(!isWriting)}
-          className="text-dark2 hover:text-dark1"
-        >
+        <button className="text-dark2 hover:text-dark1">
           {isWriting ? (
-            <button onClick={handleSubmit}>
-              <HiCheck className="size-7 xl:size-9" />
-            </button>
+            isLoading ? (
+              <div className="flex items-center gap-2">
+                <svg
+                  className="animate-spin h-5 w-5 text-dark2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v8H4z"
+                  ></path>
+                </svg>
+              </div>
+            ) : (
+              <HiCheck className="size-7 xl:size-9" onClick={handleSubmit} />
+            )
           ) : (
-            <HiOutlinePencil className="size-6 xl:size-8" />
+            <HiOutlinePencil
+              className="size-6 xl:size-8"
+              onClick={() => setIsWriting(true)}
+            />
           )}
         </button>
       </div>
