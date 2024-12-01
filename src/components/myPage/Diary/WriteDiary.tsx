@@ -48,7 +48,6 @@ const WriteDiary: React.FC = () => {
     }
 
     const formData = new FormData();
-    formData.append("memberId", "7");
 
     formData.append(
       "requestDto",
