@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "components/layout/Header";
 import LandingPage from "pages/LandingPage";
 import AuthPage from "pages/AuthPage";
+import SignUp from "components/auth/SignUp";
 import HomePage from "pages/HomePage";
 import Mypage from "pages/Mypage";
 import Profile from "components/myPage/Profile";
@@ -27,7 +28,7 @@ const AppRouter: React.FC = () => {
       <Header />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/signup" element={<AuthPage authType="signUp" />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<AuthPage authType="signIn" />} />
 
         <Route path="/home" element={<PrivateRoute element={<HomePage />} />} />
