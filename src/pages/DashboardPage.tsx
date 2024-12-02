@@ -6,7 +6,10 @@ import { teamInfo } from "data/dummy/dashboard";
 
 export default function DashboardPage() {
   return (
-    <div className="bg-light3 flex" style={{ minHeight: "calc(100vh - 82px)" }}>
+    <div
+      className="bg-light3 flex mt-[74px]"
+      style={{ minHeight: "calc(100vh - 74px)" }}
+    >
       <Sidebar menu={dashboardMenu} />
       <div className="flex-1">
         <div className="flex flex-col bg-white px-14 py-1 xl:py-4 text-dark1">

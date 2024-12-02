@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   HiOutlineChat,
   HiOutlineCog,
@@ -8,6 +7,8 @@ import {
 } from "react-icons/hi";
 import { IconType } from "react-icons";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "store/store";
 
 type MenuItem = {
   title: string;
@@ -21,8 +22,10 @@ type Props = {
 
 export default function Sidebar({ menu }: Props) {
   const navigate = useNavigate();
+  const memberInfo = useSelector((state: RootState) => state.member.memberInfo);
+
   return (
-    <div className="hidden md:flex relative w-[260px] xl:w-[310px] bg-white flex-col items-center border-r-2 border-gray-200">
+    <div className="hidden md:flex w-[260px] xl:w-[310px] sticky top-[74px] h-[calc(100vh-74px)] bg-white flex-col items-center border-r-2 border-gray-200">
       <div className="flex gap-4 xl:gap-8 mt-9 xl:mt-11 mb-4 xl:mb-6">
         <HiOutlineChat size={35} color="#333" />
         <HiOutlineCog size={35} color="#333" />
@@ -60,34 +63,40 @@ export default function Sidebar({ menu }: Props) {
         ))}
       </div>
 
-      <div className="hidden mt-auto items-stretch sm:flex w-full flex-col gap-3">
-        <div className="w-full flex items-center mx-3 lg:ml-5">
-          <img
-            src="/assets/images/profile.svg"
-            alt="profile"
-            className="w-11 xl:w-[65px]"
-          />
-          <div className="w-full flex flex-col ml-1">
-            <p className="font-bold sm:text-sm xl:text-lg">
-              도규는유명한MZ투수
-            </p>
-            <p>
-              <span className="text-dark2 sm:text-sm xl:font-bold">LV05. </span>
-              <span className="text-dark3 sm:text-sm">뉴비1</span>
+      {memberInfo && (
+        <div className="hidden mt-auto items-stretch sm:flex w-full flex-col gap-3">
+          <div className="w-full flex items-center mx-3 lg:ml-5">
+            <img
+              src={memberInfo?.profileImageUrl}
+              alt="profile"
+              className="w-11 h-11 xl:w-[55px] xl:h-[55px] border rounded-full mr-1"
+            />
+            <div className="w-full flex flex-col ml-1">
+              <p className="font-bold sm:text-sm xl:text-lg">
+                {memberInfo?.username}
+              </p>
+              <p>
+                <span className="text-dark2 sm:text-sm font-bold">
+                  {`LV${memberInfo.level}.`}
+                </span>
+                <span className="text-dark3 sm:text-sm">뉴비1</span>
+              </p>
+            </div>
+          </div>
+
+          <div className="flex ml-4 relative items-center">
+            <p className="flex text-dark1 font-bold">LV1.</p>
+            <p className="text-dark3">뉴비2 까지</p>
+            <p className="text-dark1 font-semibold text-xl absolute right-3">
+              {`${memberInfo.nextLevelExp}%`}
             </p>
           </div>
+          <div className="h-4 sm:h-5 xl:h-6 relative bg-light3 rounded-3xl mx-3">
+            <div className="w-6 h-full bg-dark3 rounded-3xl" />
+          </div>
+          <div className="w-full h-14 mt-7 bg-main2" />
         </div>
-
-        <p className="hidden xl:relative mx-6">
-          <span className="text-dark1 font-bold text-lg">LV06. </span>
-          <span className="text-dark3 text-lg">야린이5 까지</span>
-          <span className="text-dark1 font-bold text-xl absolute right-0">
-            72%
-          </span>
-        </p>
-        <div className="h-4 xl:h-6 mx-3 xl:mx-5 bg-dark3 rounded-3xl" />
-        <div className="w-full h-14 mt-7 bg-main2" />
-      </div>
+      )}
     </div>
   );
 }
