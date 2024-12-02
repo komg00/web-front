@@ -47,7 +47,7 @@ export default function Sidebar({ menu }: Props) {
     return <div>Loading...</div>;
   }
   return (
-    <div className="hidden md:flex relative w-[260px] xl:w-[310px] bg-white flex-col items-center border-r-2 border-gray-200">
+    <div className="hidden md:flex w-[260px] xl:w-[310px] sticky top-[74px] h-[calc(100vh-74px)] bg-white flex-col items-center border-r-2 border-gray-200">
       <div className="flex gap-4 xl:gap-8 mt-9 xl:mt-11 mb-4 xl:mb-6">
         <HiOutlineChat size={35} color="#333" />
         <HiOutlineCog size={35} color="#333" />

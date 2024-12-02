@@ -47,7 +47,7 @@ export default function Header() {
   if (["/", "/signup", "/signin"].includes(window.location.pathname))
     return null;
   return (
-    <header className="w-full flex items-center justify-between px-9 py-4 bg-white border-b-2 border-gray-200">
+    <header className="w-full flex items-center justify-between px-9 py-4 bg-white border-b-2 border-gray-200 fixed top-0 left-0 z-50">
       <img
         src={"/assets/images/logo.svg"}
         alt="logo"

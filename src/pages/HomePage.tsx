@@ -36,7 +36,10 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-light3 flex" style={{ minHeight: "calc(100vh - 82px)" }}>
+    <div
+      className="bg-light3 flex mt-[74px]"
+      style={{ minHeight: "calc(100vh - 74px)" }}
+    >
       <Sidebar menu={homeMenu} />
       <div className="flex-1">
         <ClubPicker />

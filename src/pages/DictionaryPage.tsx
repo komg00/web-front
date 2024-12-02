@@ -5,7 +5,7 @@ import { dictionaryMenu } from "data/menu";
 
 export default function Dictionarypage() {
   return (
-    <div className="bg-light3 flex" style={{ minHeight: "calc(100vh - 82px)" }}>
+    <div className="bg-light3 flex mt-[74px]">
       <Sidebar menu={dictionaryMenu} />
       <Outlet />
     </div>
