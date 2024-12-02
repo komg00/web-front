@@ -85,10 +85,7 @@ const SignUp = () => {
   };
 
   return (
-    <div
-      className="flex flex-col items-center justify-center bg-lightGreen "
-      style={{ minHeight: "calc(100vh - 90px)" }}
-    >
+    <div className="flex flex-col h-screen items-center justify-center bg-lightGreen">
       <div className="flex flex-col gap-6 w-2/3 max-w-[900px] h-5/6 bg-white space-y-6 px-8 py-10 lg:px-14 lg:py-16 xl:px-32 xl:py-24">
         {step === 1 && (
           <>

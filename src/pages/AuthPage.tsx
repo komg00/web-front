@@ -4,12 +4,16 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { clubs } from "data/clubs";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setAccessToken } from "store/slices/authSlice";
+
 type Props = {
   authType: string;
 };
 
 export default function AuthPage({ authType }: Props) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +36,7 @@ export default function AuthPage({ authType }: Props) {
         if (response.status === 200) {
           setErrorMessage("");
           const { accesstoken } = response.data.data;
-          localStorage.setItem("accessToken", accesstoken);
+          dispatch(setAccessToken(accesstoken));
 
           alert("로그인에 성공했습니다.");
           navigate("/home");
@@ -79,10 +83,7 @@ export default function AuthPage({ authType }: Props) {
   };
 
   return (
-    <div
-      className="flex flex-col items-center justify-center bg-lightGreen "
-      style={{ minHeight: "calc(100vh - 90px)" }}
-    >
+    <div className="flex flex-col h-screen items-center justify-center bg-lightGreen ">
       <div className="flex flex-col gap-6 w-2/3 max-w-[900px] h-5/6 bg-white space-y-6 px-8 py-10 lg:px-14 lg:py-16 xl:px-32 xl:py-24">
         <h1 className="text-4xl lg:text-5xl font-bold mb-6 lg:mb-12 text-left">
           {authType === "signUp" ? "Sign Up" : "Sign In"}
