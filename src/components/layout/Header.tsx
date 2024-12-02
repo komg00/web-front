@@ -44,6 +44,8 @@ export default function Header() {
     navigate("/");
   };
 
+  if (["/", "/signup", "/signin"].includes(window.location.pathname))
+    return null;
   return (
     <header className="w-full flex items-center justify-between px-9 py-4 bg-white border-b-2 border-gray-200">
       <img
@@ -107,7 +109,7 @@ export default function Header() {
           src={memberInfo.profileImageUrl}
           alt="profile"
           onClick={() => navigate("/mypage")}
-          className="cursor-pointer w-10 rounded-full border border-dark3"
+          className="cursor-pointer w-10 h-10 rounded-full border border-dark3"
         />
       </div>
 
