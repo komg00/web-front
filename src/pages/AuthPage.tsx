@@ -37,7 +37,6 @@ export default function AuthPage({ authType }: Props) {
           setErrorMessage("");
           const { accesstoken } = response.data.data;
           dispatch(setAccessToken(accesstoken));
-
           alert("로그인에 성공했습니다.");
           navigate("/home");
         }

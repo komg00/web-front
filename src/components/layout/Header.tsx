@@ -1,44 +1,42 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store/store";
+import { logout } from "store/slices/authSlice";
 import { useMemberInfo } from "api/memberApi";
 
 export default function Header() {
   const { fetchMemberInfo } = useMemberInfo();
   const memberInfo = useSelector((state: RootState) => state.member.memberInfo);
-
+  const accessToken = useSelector((state: RootState) => state.auth.accessToken);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    setIsLoggedIn(!!token);
-
-    fetchMemberInfo();
-  }, []);
+    if (accessToken) {
+      fetchMemberInfo();
+    }
+  }, [accessToken, fetchMemberInfo]);
 
   // 로그아웃 처리
   const handleSignOut = () => {
-    localStorage.removeItem("accessToken");
+    dispatch(logout());
     alert("로그아웃했습니다.");
-    window.location.reload();
-    setIsLoggedIn(false);
-    navigate("/");
   };
 
   if (["/", "/signup", "/signin"].includes(window.location.pathname))
     return null;
+
   return (
     <header className="w-full flex items-center justify-between px-9 py-4 bg-white border-b-2 border-gray-200 fixed top-0 left-0 z-50">
       <img
         src={"/assets/images/logo.svg"}
         alt="logo"
         className="cursor-pointer"
-        onClick={() => (isLoggedIn ? navigate("/home") : navigate("/"))}
+        onClick={() => (accessToken ? navigate("/home") : navigate("/"))}
       />
       <div
         className={`${
@@ -71,7 +69,7 @@ export default function Header() {
         </Link>
       </div>
       <div className="flex items-center justify-center space-x-3">
-        {isLoggedIn ? (
+        {accessToken ? (
           <button
             className="dark2 hover:text-black hover:font-semibold mx-2 cursor-pointer"
             onClick={handleSignOut}

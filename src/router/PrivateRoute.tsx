@@ -1,14 +1,16 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "store/store";
 
 interface PrivateRouteProps {
   element: JSX.Element;
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ element }) => {
-  const token = localStorage.getItem("accessToken");
+  const accessToken = useSelector((state: RootState) => state.auth.accessToken);
 
-  if (!token) {
+  if (!accessToken) {
     return <Navigate to="/signin" replace />;
   }
 
